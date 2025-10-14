@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho final dos elementos */
+    font-family: sans-serif; /* Usar uma fonte simples para começar */
+}
+
+:root {
+    /* Definição das cores principais do layout */
+    --cor-fundo-principal: #5e1c1c; 
+    --cor-destaque-claro: #f0e68c; 
+    --cor-botao-escura: #5e1c1c; 
+    --cor-texto-claro: #ffffff; 
+    --cor-texto-escuro: #333333; 
+}
+body {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    margin: 1.2px;
+    /* Adiciona um padding nas laterais do corpo */
+}
+
+
+.cabecario {
+    display: flex;
+    background-color: #ffffff;
+    justify-content: center; /* Distribui o espaço entre os elementos */
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 40px; /* Espaço após o cabeçalho */
+    /* Adicionar uma borda inferior ou cor de fundo se necessário para separação visual */
+}
+
+.logo {
+    height: 95px; 
+}
+
+.menu-navegacao {
+    flex-grow: 1; /* Permite que o nav ocupe o espaço restante */
+    margin-left: 50px; /* Espaço entre a logo e o menu */
+    color: var(--cor-texto-escuro);
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--cor-texto-escuro); /* Usa a cor do texto do body (Branco) */
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s; /* Transição suave para a mudança de cor */
+}
+.menu a:hover {
+    color: var(--cor-botao-escura); /* Muda para a cor do botão ao passar o mouse */
+}
+/* Ações do Usuário (Pesquisa e Ícones) */
+.acoes-usuario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.barra-pesquisa {
+    display: flex;
+    align-items: center;
+    background-color: var(--cor-texto-claro); /* Fundo branco */
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 350px;
+    /* Inclua aqui estilos para os ícones de lupa/microfone se usar imagens */
+}
+
+.barra-pesquisa input[type="search"] {
+    border: 1px 1px gray;
+    border-radius: 5px;
+    outline: none;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.icone-config, .icone-perfil {
+    /* Você deve usar SVGs ou ícones de fonte para ter a aparência da imagem */
+    /* Para demonstração, estou usando o ícone de perfil no HTML. Ajuste o tamanho da imagem. */
+    height: 30px; 
+    width: 30px;
+    cursor: pointer;
+    /* Você precisará estilizar esses elementos para parecerem os ícones na imagem */
+    background-color: #ffffff; /* Cor temporária para visualizar a área do ícone */
+    border-radius: 50%; /* Se forem circulares */
+    margin-right: 10px;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0e68c;
+    height: 650px;
+    width: 1000px;
+    margin: auto;
+    border-radius: 7px;
+}
+.adic{
+    text-align: center;
+    color: var(--cor-botao-escura);
+    margin-bottom: 300px;
+    
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px; /* Bordas arredondadas apenas à esquerda */
+  margin-right: -1px; /* Remove o espaço entre os elementos */
+}
+
+.add-button {
+  padding: 3px 7px;
+  background-color: var(--cor-botao-escura);
+  color: white;
+  border: 1px solid var(--cor-botao-escura);
+  border-radius: 50%; /* Bordas arredondadas apenas à direita */
+  cursor: pointer;
+}
+
+.adc-button{
+    display: flex;
+    background-color: var(--cor-botao-escura);
+    color: var(--cor-texto-claro);
+    border: none;
+    border-radius: 50px;
+    padding: 20px;
+    margin: 10px;
+    width: 100px;
+}

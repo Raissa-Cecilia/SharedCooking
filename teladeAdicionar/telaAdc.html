@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Cooking</title>
+    <link rel="stylesheet" href="adcEstilo.css">
+</head>
+<body>
+    <header class="cabecario">
+        <img src="imagens/logoIdea1.png" alt="Logo do site" class="logo">
+        
+        <nav class="menu-navegacao">
+            <ul class="menu">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Categorias</a></li>
+                <li><a href="#">Adicionar Receita</a></li>
+                <li><a href="#">Conatato</a></li>
+                </ul>
+        </nav>
+
+        <div class="acoes-usuario">
+            <div class="barra-pesquisa">
+                <input type="search" placeholder="Buscar receitas...">
+                </div>
+            <img src="imagens/iconeconfiguracao-.webp" alt="Configurações" class="icone-config">
+            <img src="imagens/iconeperfil-.png" alt="Perfil do Usuário" class="icone-perfil">
+        </div>
+    </header>
+    <main>
+        <div class="adic">
+            <h1>Adicionar receita</h1>
+            <br><label for="fnomeReceita">Nome da Receita</label>
+            <input type="text" id="fnomeReceita" placeholder="Digite o nome da receita"><br>
+
+            <br><label for="fIngredientes">Ingredientes</label>
+            <input type="text" id="fIngredientes">
+            <button class="add-button">+</button>
+            
+            <br><label for="fCategorias">Categorias</label>
+            <input type="text" id="fCategorias">
+            <button class="add-button">+</button>
+            
+            <br><label for="fModoPreparo">Modo de Preparo</label>
+            <input type="text" id="fModoPreparo" >
+            <button class="add-button">+</button>
+
+            <br><label for="fTempoPreparo">Tempo de Preparo</label>
+            <input type="text" id="fTempoPreparo" >
+            <button class="add-button">+</button>
+        </div>
+
+        <button  class="adc-button">Adicionar</button>
+    </main>
+</body>
+</html>
