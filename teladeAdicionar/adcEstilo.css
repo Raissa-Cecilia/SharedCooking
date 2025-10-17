@@ -1,8 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho final dos elementos */
-    font-family: sans-serif; /* Usar uma fonte simples para começar */
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
 :root {
@@ -12,33 +12,31 @@
     --cor-botao-escura: #5e1c1c; 
     --cor-texto-claro: #ffffff; 
     --cor-texto-escuro: #333333; 
+    --cor-fundo-card: #f8e9a1; 
 }
 body {
     background-color: var(--cor-fundo-principal);
     color: var(--cor-texto-claro);
-    margin: 1.2px;
-    /* Adiciona um padding nas laterais do corpo */
+   
 }
 
+/* --- Cabeçalho (Header) --- */
 
 .cabecario {
     display: flex;
     background-color: #ffffff;
-    justify-content: center; /* Distribui o espaço entre os elementos */
+    justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    margin-bottom: 40px; /* Espaço após o cabeçalho */
-    /* Adicionar uma borda inferior ou cor de fundo se necessário para separação visual */
+    padding: 10px 40px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .logo {
-    height: 95px; 
+    height: 70px; 
 }
 
 .menu-navegacao {
-    flex-grow: 1; /* Permite que o nav ocupe o espaço restante */
-    margin-left: 50px; /* Espaço entre a logo e o menu */
-    color: var(--cor-texto-escuro);
+    margin-left: 50px; 
 }
 
 .menu {
@@ -49,15 +47,15 @@ body {
 
 .menu a {
     text-decoration: none;
-    color: var(--cor-texto-escuro); /* Usa a cor do texto do body (Branco) */
+    color: var(--cor-texto-escuro); 
     font-weight: bold;
-    font-size: 16px;
-    transition: color 0.3s; /* Transição suave para a mudança de cor */
+    font-size: 15px;
+    transition: color 0.3s;
 }
 .menu a:hover {
-    color: var(--cor-botao-escura); /* Muda para a cor do botão ao passar o mouse */
+    color: var(--cor-botao-escura); 
 }
-/* Ações do Usuário (Pesquisa e Ícones) */
+
 .acoes-usuario {
     display: flex;
     align-items: center;
@@ -67,72 +65,217 @@ body {
 .barra-pesquisa {
     display: flex;
     align-items: center;
-    background-color: var(--cor-texto-claro); /* Fundo branco */
-    border-radius: 5px;
-    padding: 5px 10px;
-    width: 350px;
-    /* Inclua aqui estilos para os ícones de lupa/microfone se usar imagens */
+    background-color: #f5f5f5; 
+    border-radius: 20px; 
+    padding: 8px 15px; 
+    width: 300px;
+    border: 1px solid #ddd;
+}
+
+.barra-pesquisa .fa-search {
+    color: #999;
+    margin-left: 10px;
 }
 
 .barra-pesquisa input[type="search"] {
-    border: 1px 1px gray;
-    border-radius: 5px;
+    border: none;
     outline: none;
     flex-grow: 1;
-    padding: 10px;
+    padding: 0; 
+    background-color: transparent;
+    font-size: 15px;
 }
 
 .icone-config, .icone-perfil {
-    /* Você deve usar SVGs ou ícones de fonte para ter a aparência da imagem */
-    /* Para demonstração, estou usando o ícone de perfil no HTML. Ajuste o tamanho da imagem. */
-    height: 30px; 
-    width: 30px;
+    color: var(--cor-texto-escuro);
+    font-size: 26px; 
     cursor: pointer;
-    /* Você precisará estilizar esses elementos para parecerem os ícones na imagem */
-    background-color: #ffffff; /* Cor temporária para visualizar a área do ícone */
-    border-radius: 50%; /* Se forem circulares */
-    margin-right: 10px;
 }
-main{
+
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0; 
+    min-height: calc(100vh - 90px); 
+}
+
+.form-receita {
+    background-color: var(--cor-fundo-card);
+    width: 90%; 
+    max-width: 800px; 
+    padding: 40px;
+    border-radius: 20px; 
+    color: var(--cor-botao-escura); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-form {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.form-receita input[type="text"],
+.form-receita textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-receita label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo-linha {
+    margin-bottom: 20px;
+}
+
+#nomeReceita {
+    padding: 12px;
+}
+
+
+.upload-area {
+    border: 2px dashed #a0a0a0;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    color: #666;
+}
+
+.upload-label .fa-camera {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+
+.descricao-area {
+    margin-bottom: 30px;
+}
+.descricao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.descricao-header label {
+    margin-bottom: 0;
+}
+
+
+.campos-duplos {
+    display: flex;
+    gap: 30px; 
+    margin-bottom: 20px;
+}
+
+.campo-grupo {
+    flex: 1; 
+}
+
+
+.input-com-botao {
+    display: flex;
+    align-items: center;
+}
+
+.input-com-botao input[type="text"] {
+    flex-grow: 1;
+    border-radius: 4px 0 0 4px;
+    margin-right: -1px; 
+}
+
+
+.add-button {
+    background-color: var(--cor-botao-escura);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0e68c;
-    height: 650px;
-    width: 1000px;
-    margin: auto;
-    border-radius: 7px;
+    padding: 0;
+    font-weight: bold;
 }
-.adic{
+
+/* Botão Salvar Receita */
+.botao-salvar-container {
     text-align: center;
-    color: var(--cor-botao-escura);
-    margin-bottom: 300px;
-    
+    margin-top: 40px;
 }
 
-input[type="text"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px; /* Bordas arredondadas apenas à esquerda */
-  margin-right: -1px; /* Remove o espaço entre os elementos */
-}
-
-.add-button {
-  padding: 3px 7px;
-  background-color: var(--cor-botao-escura);
-  color: white;
-  border: 1px solid var(--cor-botao-escura);
-  border-radius: 50%; /* Bordas arredondadas apenas à direita */
-  cursor: pointer;
-}
-
-.adc-button{
-    display: flex;
+.botao-salvar {
     background-color: var(--cor-botao-escura);
     color: var(--cor-texto-claro);
     border: none;
-    border-radius: 50px;
-    padding: 20px;
-    margin: 10px;
-    width: 100px;
+    border-radius: 25px; 
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao-salvar:hover {
+    background-color: #a33939; 
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.dot.active {
+    background-color: var(--cor-botao-escura);
+}
+/* --- Estilos do Rodapé --- */
+.rodape {
+    background-color: var(--cor-texto-claro); 
+    color: var(--cor-texto-escuro);
+    padding: 30px 40px;
+    text-align: center;
+    margin-top: 50px; 
+    width: 100%;
+}
+
+.rodape p {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.links-rodape a {
+    color: var(--cor-texto-escuro);
+    text-decoration: none;
+    font-size: 0.85em;
+    padding: 0 5px;
+}
+
+.links-rodape a:hover {
+    text-decoration: underline;
 }

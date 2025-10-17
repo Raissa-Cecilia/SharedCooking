@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Cooking</title>
     <link rel="stylesheet" href="adcEstilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="cabecario">
@@ -16,41 +17,90 @@
                 <li><a href="#">Categorias</a></li>
                 <li><a href="#">Adicionar Receita</a></li>
                 <li><a href="#">Conatato</a></li>
-                </ul>
+            </ul>
         </nav>
 
         <div class="acoes-usuario">
             <div class="barra-pesquisa">
-                <input type="search" placeholder="Buscar receitas...">
-                </div>
-            <img src="imagens/iconeconfiguracao-.webp" alt="Configurações" class="icone-config">
-            <img src="imagens/iconeperfil-.png" alt="Perfil do Usuário" class="icone-perfil">
+                <input type="search" placeholder="Buscar receitas..."> 
+                 <i class="fas fa-search"></i> </div>
+            <i class="fas fa-cog icone-config"></i>
+            <i class="fas fa-user-circle icone-perfil"></i>
         </div>
     </header>
+    
     <main>
-        <div class="adic">
-            <h1>Adicionar receita</h1>
-            <br><label for="fnomeReceita">Nome da Receita</label>
-            <input type="text" id="fnomeReceita" placeholder="Digite o nome da receita"><br>
+        <form id="adicionar-receita-form" class="form-receita">
+            <h2 class="titulo-form">Adicione sua receita!</h2>
 
-            <br><label for="fIngredientes">Ingredientes</label>
-            <input type="text" id="fIngredientes">
-            <button class="add-button">+</button>
+            <div class="campo-linha">
+                <label for="nomeReceita">Nome da receita</label>
+                <input type="text" id="nomeReceita" name="nomeReceita" placeholder="Nome da receita">
+            </div>
+
+            <div class="campo-linha upload-area">
+                <label for="uploadMidia" class="upload-label">
+                    <i class="fas fa-camera"></i>
+                    Arrasta e solta ou clique para adicionar vídeo/imagem
+                </label>
+                <input type="file" id="uploadMidia" name="uploadMidia" accept="image/*,video/*" hidden> 
+            </div>
+
+            <div class="campo-linha descricao-area">
+                <div class="descricao-header">
+                    <label for="descricaoReceita">Conte-nos sobre</label>
+                </div>
+                <textarea id="descricaoReceita" name="descricaoReceita" rows="4"></textarea> 
+            </div>
             
-            <br><label for="fCategorias">Categorias</label>
-            <input type="text" id="fCategorias">
-            <button class="add-button">+</button>
+            <div class="campos-duplos">
+                <div class="campo-grupo">
+                    <label for="ingredientes">Ingredientes</label>
+                    <div class="input-com-botao">
+                        <input type="text" id="ingredientes" name="ingredientes">
+                        <button type="button" class="add-button">+</button>
+                    </div>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="categorias">Categorias</label>
+                    <div class="input-com-botao">
+                        <input type="text" id="categorias" name="categorias">
+                        <button type="button" class="add-button">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="campos-duplos">
+                <div class="campo-grupo">
+                    <label for="modoPreparo">Modo de preparo</label>
+                    <div class="input-com-botao">
+                        <input type="text" id="modoPreparo" name="modoPreparo">
+                        <button type="button" class="add-button">+</button>
+                    </div>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="tempoPreparo">Tempo de preparo</label>
+                    <div class="input-com-botao">
+                        <input type="text" id="tempoPreparo" name="tempoPreparo" placeholder="Tempo de preparo">
+                        <button type="button" class="add-button">+</button>
+                    </div>
+                </div>
+            </div>
             
-            <br><label for="fModoPreparo">Modo de Preparo</label>
-            <input type="text" id="fModoPreparo" >
-            <button class="add-button">+</button>
-
-            <br><label for="fTempoPreparo">Tempo de Preparo</label>
-            <input type="text" id="fTempoPreparo" >
-            <button class="add-button">+</button>
-        </div>
-
-        <button  class="adc-button">Adicionar</button>
+            <div class="botao-salvar-container">
+                <button type="submit" class="botao-salvar">Salvar Receita</button>
+            </div>
+    
+        </form>
     </main>
+       <footer class="rodape">
+        <p>&copy; 2025 Shared Cooking. Todos os direitos reservados.</p>
+        <div class="links-rodape">
+            <a href="#">Termos de Uso</a> |
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </footer>
 </body>
 </html>
