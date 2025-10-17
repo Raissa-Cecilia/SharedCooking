@@ -1,0 +1,192 @@
+:root {
+    --fundo-principal: #530808;
+    --fundo-cabecalho: #DBCCC0;
+    --texto-claro: #f5f5f5;
+    --cor-destaque: #8B4513;
+}
+
+
+body {
+    background-color: var(--fundo-principal);
+    color: var(--texto-claro);
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.cabecalho-personalizado {
+    background-color: var(--fundo-cabecalho);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.imagem-logo {
+    height: 60px;
+    width: auto;
+}
+
+.texto-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--fundo-principal);
+}
+
+.navbar-nav .nav-link {
+    color: var(--fundo-principal) !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--cor-destaque) !important;
+}
+
+.navbar-toggler {
+    border-color: var(--fundo-principal);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2883, 8, 8, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.secao-hero {
+    padding: 4rem 0;
+}
+
+.titulo-hero {
+    font-size: 3rem;
+    color: var(--texto-claro);
+}
+
+.texto-hero {
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+.container-imagem-hero img {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sombra {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.botao-personalizado {
+    background-color: var(--fundo-cabecalho);
+    color: var(--fundo-principal);
+    padding: 0.8rem 1.8rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s;
+}
+
+.botao-personalizado:hover {
+    background-color: var(--texto-claro);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: var(--fundo-principal);
+}
+
+
+.secao {
+    padding: 4rem 0;
+}
+
+.titulo-secao {
+    font-size: 2.5rem;
+    color: var(--fundo-cabecalho);
+}
+
+
+.container-estatisticas {
+    margin: 3rem 0;
+}
+
+.item-estatistica {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.numero-estatistica {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--fundo-cabecalho);
+    margin-bottom: 0.5rem;
+}
+
+.info-fonte {
+    font-size: 0.9rem;
+    color: var(--fundo-cabecalho);
+    font-style: italic;
+}
+
+
+.secao-problema {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.titulo-problema {
+    color: var(--fundo-cabecalho);
+}
+
+
+.cartao-caracteristica {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.titulo-caracteristica {
+    font-size: 1.5rem;
+    color: var(--fundo-cabecalho);
+}
+
+
+.secao-cta {
+    background-color: rgba(219, 204, 192, 0.1);
+    border-radius: 10px;
+    margin-top: 3rem;
+}
+
+.titulo-cta {
+    font-size: 2.5rem;
+    color: var(--fundo-cabecalho);
+}
+
+.texto-cta {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+.rodape-personalizado {
+    background-color: #2c0a0a;
+    margin-top: 4rem;
+}
+
+.nota-rodape {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+
+@media (max-width: 768px) {
+    .titulo-hero {
+        font-size: 2.5rem;
+    }
+    
+    .container-logo {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .texto-logo {
+        font-size: 1.4rem;
+    }
+    
+    .container-estatisticas .col-md-5 {
+        margin-bottom: 1rem;
+    }
+}
