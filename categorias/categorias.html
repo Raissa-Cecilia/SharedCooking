@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Cooking - Categorias</title>
+    <link rel="stylesheet" href="categorias.css">
+    <script src="categorias.js" defer></script>
+    
+</head>
+<body>
+   <header class="cabecario">
+        <img src="imgs/logoIdea1.png" alt="Logo do site" class="logo">
+        
+        <nav class="menu-navegacao">
+            <ul class="menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="categorias.html">Categorias</a></li>
+                <li><a href="#">Adicionar Receita</a></li>
+                <li><a href="#">Contato</a></li>
+                </ul>
+        </nav>
+
+        <div class="acoes-usuario">
+            <div class="barra-pesquisa">
+                <input type="search" placeholder="Buscar receitas...">
+                </div>
+            <img src="imgs/iconeconfiguracao-.webp" alt="Configurações" class="icone-config">
+            <img src="imgs/iconeperfil-.png" alt="Perfil do Usuário" class="icone-perfil">
+        </div>
+    </header>
+
+    <div class="carousel-container">
+        <button class="nav-button prev" onclick="moveCarousel(-1)">
+            <div class="arrow"></div>
+        </button>
+        
+        <div class="carousel">
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">BRASILEIRA</div>
+                    <div class="category-image">🍳</div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">VEGANA</div>
+                    <div class="category-image">🥗</div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">ITALIANA</div>
+                    <div class="category-image">🍝</div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">LANCHES</div>
+                    <div class="category-image">🍔</div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">JAPONESA</div>
+                    <div class="category-image">🍣</div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-content">
+                    <div class="category-name">CONFEITARIA</div>
+                    <div class="category-image">🍰</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="nav-button next" onclick="moveCarousel(1)">
+            <div class="arrow"></div>
+        </button>
+
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <footer class="rodape">
+        <p>&copy; 2025 Shared Cooking. Todos os direitos reservados.</p>
+        <div class="links-rodape">
+            <a href="#">Termos de Uso</a> |
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </footer>
+
+</body>
+</html>
