@@ -133,6 +133,7 @@ barra-pesquisa .fa-search {
 }
 
 .category-name {
+    font-family: Georgia, 'Times New Roman', Times, serif;
      color: #ffffff;
     font-size: 32px;
     font-weight: bold;
