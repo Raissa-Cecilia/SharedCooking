@@ -99,7 +99,7 @@ async function buscarReceitasDestaque() {
     ];
 
     // Simula um pequeno atraso de rede
-    return new Promise(resolve => setTimeout(() => resolve(receitasDestaque), 500));
+    return new Promise(resolve => setTimeout(() => resolve(receitasDestaque), 100));
 }
 
 // -------------------------------------------------------------------
