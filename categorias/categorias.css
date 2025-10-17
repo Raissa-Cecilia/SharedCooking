@@ -133,18 +133,22 @@ barra-pesquisa .fa-search {
 }
 
 .category-name {
-    color: #8B4513;
+     color: #ffffff;
     font-size: 32px;
     font-weight: bold;
     text-transform: uppercase;
     z-index: 1;
+    position: relative;
+    top:-30px; 
 }
 
 .category-image {
-    font-size: 80px;
+    width: 110px;
+    height: 107px;
     position: absolute;
-    right: 20px;
-    bottom: -10px;
+    right: 7px;
+    bottom: 7px;
+    object-fit: contain;
 }
 
 .nav-button {
@@ -183,10 +187,10 @@ barra-pesquisa .fa-search {
     position: relative;
 }
 
-        .arrow::before,
-        .arrow::after {
-            content: '';
-            position: absolute;
+.arrow::before,
+.arrow::after {
+    content: '';
+    position: absolute;
     width: 20px;
     height: 6px;
     background: white;
@@ -231,7 +235,7 @@ barra-pesquisa .fa-search {
     transition: background 0.3s;
  }
 
-
+/* ----- RODAPÉ -----*/
 
 .rodape {
     background-color: var(--cor-texto-claro); 
