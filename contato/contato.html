@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Cooking</title>
+    <link rel="stylesheet" href="contato.css">
+</head>
+<body>
+     <header class="cabecario">
+        <img src="logoIdea1.png" alt="Logo do site" class="logo">
+        
+        <nav class="menu-navegacao">
+            <ul class="menu">
+                <li><a href="#">Início</a></li>
+                <li><a href="categorias/categorias.html">Categorias</a></li>
+                <li><a href="telaAdc.html">Adicionar Receita</a></li>
+                <li><a href="#">Conatato</a></li>
+            </ul>
+        </nav>
+
+        <div class="acoes-usuario">
+            <div class="barra-pesquisa">
+                <input type="search" placeholder="Buscar receitas..."> 
+                 <i class="fas fa-search"></i> </div>
+            <i class="fas fa-cog icone-config"></i>
+            <i class="fas fa-user-circle icone-perfil"></i>
+        </div>
+    </header>
+    <main class="principal">
+    <div class="container">
+        
+        <section class="secao-contato">
+            <h1>Fale Conosco</h1>
+            <p class="introducao-contato">Tem alguma dúvida, sugestão, ou quer relatar um problema? Preencha o formulário abaixo ou utilize nossos canais diretos de contato.</p>
+            
+            <div class="conteudo-flex-contato">
+                
+                <div class="formulario-container">
+                    <h2>Envie sua Mensagem</h2>
+                    <form action="processar_contato.php" method="POST" class="form-contato">
+                        
+                        <div class="campo-form">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                        </div>
+                        
+                        <div class="campo-form">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com">
+                        </div>
+                        
+                        <div class="campo-form">
+                            <label for="assunto">Assunto</label>
+                            <select id="assunto" name="assunto" required>
+                                <option value="" disabled selected>Selecione um assunto</option>
+                                <option value="duvida">Dúvida Geral</option>
+                                <option value="sugestao">Sugestão/Ideia</option>
+                                <option value="problema">Reportar um Problema Técnico</option>
+                                <option value="parceria">Parceria/Mídia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="campo-form">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="6" required placeholder="Descreva sua mensagem em detalhes..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="botao-enviar">Enviar Mensagem</button>
+                    </form>
+                </div>
+                
+                <aside class="info-contato">
+                    <h2>Outros Canais</h2>
+                    
+                    <div class="detalhe-contato">
+                        <i class="fas fa-envelope icone-info"></i>
+                        <h3>E-mail de Suporte</h3>
+                        <p>suporte@sharedcooking.com.br</p>
+                    </div>
+
+                    <div class="detalhe-contato">
+                        <i class="fas fa-phone icone-info"></i>
+                        <h3>Telefone</h3>
+                        <p>+55 (XX) XXXX-XXXX (Apenas horário comercial)</p>
+                    </div>
+
+                    <div class="detalhe-contato">
+                        <i class="fas fa-map-marker-alt icone-info"></i>
+                        
+                    </div>
+
+                    <div class="redes-sociais">
+                        <h3>Siga-nos</h3>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </aside>
+                
+            </div>
+            
+        </section>
+
+    </div>
+</main>
+
+     <footer class="rodape">
+        <p>&copy; 2025 Shared Cooking. Todos os direitos reservados.</p>
+        <div class="links-rodape">
+            <a href="#">Termos de Uso</a> |
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </footer>
+</body>
+</html>
