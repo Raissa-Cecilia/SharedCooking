@@ -30,7 +30,6 @@ body {
 
 .logo {
     height: 90px; 
-    width: auto; 
 }
 
 .menu-navegacao {
@@ -44,52 +43,50 @@ body {
 }
 
 .menu a {
-   text-decoration: none;
+    text-decoration: none;
     color: var(--cor-texto-escuro); 
     font-weight: bold;
-    font-size: 16px;
+    font-size: 15px;
     transition: color 0.3s;
 }
-
 .menu a:hover {
-     color: var(--cor-botao-escura)
+    color: var(--cor-botao-escura); 
 }
 
 .acoes-usuario {
     display: flex;
     align-items: center;
-    gap: 15px; 
+    gap: 15px;
 }
+
 .barra-pesquisa {
     display: flex;
     align-items: center;
     background-color: #f5f5f5; 
     border-radius: 20px; 
-    padding: 8px 15px; /* Aumentado o padding */
+    padding: 8px 15px; 
     width: 300px;
     border: 1px solid #ddd;
 }
 
-barra-pesquisa .fa-search {
+.barra-pesquisa .fa-search {
     color: #999;
     margin-left: 10px;
 }
 
 .barra-pesquisa input[type="search"] {
-    
     border: none;
     outline: none;
     flex-grow: 1;
-    padding: 0; /* Removido padding interno para controle total pelo pai */
+    padding: 0; 
     background-color: transparent;
     font-size: 15px;
 }
 
 .icone-config, .icone-perfil {
-    width: 30px; 
-    height: 30px; 
+    color: var(--cor-texto-escuro);
+    font-size: 26px; 
     cursor: pointer;
-    object-fit: contain;
 }
 
 /* ----- MAIN ----- */
