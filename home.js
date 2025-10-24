@@ -111,7 +111,88 @@ async function buscarReceitasDestaque() {
             dificuldade: "Médio",
             porcoes: 12,
             dataPublicacao: "2025-01-08"
-        }
+        },
+        {
+        id: 6,
+        nome: "Frango à Parmegiana Caseiro",
+        fotoUrl: "imagens/FrangoParmegiana.jpg", 
+        resumo: "Clássico brasileiro com frango empanado, molho de tomate caseiro e queijo derretido. Confort food que agrada a todos.",
+        curtidas: 1650,
+        comentarios: 105,
+        favoritos: 520,
+        categoria: "Pratos Principais",
+        ingredientes: ["Peito de Frango", "Farinha de Rosca", "Ovos", "Molho de Tomate", "Queijo Mussarela", "Orégano"],
+        modoPreparo: ["1. Tempere o frango...", "2. Passe na farinha e ovos...", "3. Cubra com molho e queijo..."],
+        tempoPreparo: "50 min",
+        dificuldade: "Médio",
+        porcoes: 4,
+        dataPublicacao: "2025-01-26"
+    },
+    {
+        id: 7,
+        nome: "Pudim de Leite Condensado Cremoso",
+        fotoUrl: "imagens/PudimLeite.jpg", 
+        resumo: "O pudim perfeito: caramelizado por fora, cremoso por dentro. Receita tradicional que nunca falha e conquista todos os paladares.",
+        curtidas: 2200,
+        comentarios: 156,
+        favoritos: 890,
+        categoria: "Sobremesas",
+        ingredientes: ["Leite Condensado", "Leite", "Ovos", "Açúcar", "Baunilha"],
+        modoPreparo: ["1. Derreta o açúcar para a calda...", "2. Bata os ingredientes...", "3. Cozinhe em banho-maria..."],
+        tempoPreparo: "1 hora + 6h geladeira",
+        dificuldade: "Médio",
+        porcoes: 8,
+        dataPublicacao: "2025-01-27"
+    },
+    {
+        id: 8,
+        nome: "Sopa Cremosa de Abóbora com Gengibre",
+        fotoUrl: "imagens/SopaAbobora.jpg", 
+        resumo: "Sopa reconfortante e saborosa com abóbora cabotiá, toque de gengibre e finalizada com creme de leite. Ideal para dias frios.",
+        curtidas: 650,
+        comentarios: 38,
+        favoritos: 190,
+        categoria: "Saudáveis & Leves",
+        ingredientes: ["Abóbora Cabotiá", "Gengibre", "Cebola", "Caldo de Legumes", "Creme de Leite", "Noz-moscada"],
+        modoPreparo: ["1. Refogue a cebola...", "2. Cozinhe a abóbora...", "3. Bata até obter creme..."],
+        tempoPreparo: "30 min",
+        dificuldade: "Fácil",
+        porcoes: 4,
+        dataPublicacao: "2025-01-28"
+    },
+    {
+        id: 9,
+        nome: "Bolinho de Chuva com Canela",
+        fotoUrl: "imagens/BolinhoChuva.jpg", 
+        resumo: "Clássico da infância, esses bolinhos fofinhos e dourados são perfeitos para o lanche da tarde. Crocantes por fora, macios por dentro.",
+        curtidas: 1450,
+        comentarios: 89,
+        favoritos: 410,
+        categoria: "Lanches & Aperitivos",
+        ingredientes: ["Farinha de Trigo", "Ovos", "Leite", "Açúcar", "Canela", "Fermento"],
+        modoPreparo: ["1. Misture os ingredientes...", "2. Frite em óleo quente...", "3. Passe na mistura de canela e açúcar..."],
+        tempoPreparo: "20 min",
+        dificuldade: "Fácil",
+        porcoes: 6,
+        dataPublicacao: "2025-01-29"
+    },
+    {
+        id: 10,
+        nome: "Macarrão Alfredo com Cogumelos",
+        fotoUrl: "imagens/MacarraoAlfredo.jpg", 
+        resumo: "Massa cremosa com molho Alfredo caseiro e cogumelos salteados. Um prato italiano reconfortante e cheio de sabor.",
+        curtidas: 1250,
+        comentarios: 82,
+        favoritos: 380,
+        categoria: "Massas & Pizzas",
+        ingredientes: ["Fettuccine", "Cogumelos Paris", "Creme de Leite", "Manteiga", "Queijo Parmesão", "Noz-moscada"],
+        modoPreparo: ["1. Cozinhe o macarrão...", "2. Salteie os cogumelos...", "3. Prepare o molho Alfredo..."],
+        tempoPreparo: "25 min",
+        dificuldade: "Fácil",
+        porcoes: 4,
+        dataPublicacao: "2025-01-30"
+    }
+            
     ];
 
     // Simula um pequeno atraso de rede
@@ -203,6 +284,54 @@ async function buscarReceitasRecentes() {
             dificuldade: "Fácil",
             porcoes: 4,
             dataPublicacao: "2025-01-16"
+        },
+        {
+            id: 11,
+            nome: "Lasanha de Berinjela com Queijos",
+            fotoUrl: "imagens/LasanhaBerinjela.jpg", 
+            resumo: "Uma versão mais leve da lasanha tradicional, substituindo a massa por finas fatias de berinjela grelhada. Camadas de queijo e molho de tomate caseiro.",
+            curtidas: 920,
+            comentarios: 68,
+            favoritos: 310,
+            categoria: "Pratos Principais",
+            ingredientes: ["Berinjela", "Queijo Mussarela", "Queijo Parmesão", "Molho de Tomate", "Carne Moída", "Manjericão"],
+            modoPreparo: ["1. Corte as berinjelas em fatias finas...", "2. Grelhe as fatias de berinjela...", "3. Monte as camadas em uma forma..."],
+            tempoPreparo: "1 hora 15 min",
+            dificuldade: "Médio",
+            porcoes: 6,
+            dataPublicacao: "2025-01-21"
+        },
+        {
+            id: 12,
+            nome: "Tacos Mexicanos Picantes",
+            fotoUrl: "imagens/TacosMexicanos.jpg", 
+            resumo: "Tacos autênticos com carne temperada, coentro fresco, cebola roxa e molho de abacate cremoso. Perfeitos para uma refeição rápida e saborosa.",
+            curtidas: 1350,
+            comentarios: 92,
+            favoritos: 420,
+            categoria: "Pratos Principais",
+            ingredientes: ["Tortilhas de Milho", "Carne Bovina", "Coentro", "Cebola Roxa", "Abacate", "Pimenta Jalapeño"],
+            modoPreparo: ["1. Tempere e cozinhe a carne...", "2. Prepare o guacamole...", "3. Aqueça as tortilhas..."],
+            tempoPreparo: "25 min",
+            dificuldade: "Fácil",
+            porcoes: 4,
+            dataPublicacao: "2025-01-22"
+        },
+        {
+            id: 13,
+            nome: "Cheesecake de Frutas Vermelhas",
+            fotoUrl: "imagens/CheesecakeFrutas.jpg", 
+            resumo: "Cheesecake cremoso com base de biscoito amanteigado e cobertura de calda de frutas vermelhas. A combinação perfeita entre doce e azedo.",
+            curtidas: 1850,
+            comentarios: 124,
+            favoritos: 670,
+            categoria: "Sobremesas",
+            ingredientes: ["Cream Cheese", "Biscoito Maisena", "Frutas Vermelhas", "Açúcar", "Gelatina", "Manteiga"],
+            modoPreparo: ["1. Triture os biscoitos...", "2. Bata o cream cheese...", "3. Prepare a calda de frutas..."],
+            tempoPreparo: "45 min + 4h geladeira",
+            dificuldade: "Médio",
+            porcoes: 8,
+            dataPublicapia: "2025-01-23"
         }
     ];
 
