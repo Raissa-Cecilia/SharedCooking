@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Shared Cooking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="configuracao.css">
+    
+</head>
+<body>
+    <header class="cabecario">
+        <img src="imagens/logoIdea1.png" alt="Logo do site" class="logo">
+        
+        <nav class="menu-navegacao">
+            <ul class="menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="categorias/categorias.html">Categorias</a></li>
+                <li><a href="telaAdc.html">Adicionar Receita</a></li>
+                <li><a href="/contato/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+
+        <div class="acoes-usuario">
+            <div class="barra-pesquisa">
+                <input type="search" placeholder="Buscar receitas..."> 
+                <i class="fas fa-search"></i>
+            </div>
+            <i class="fas fa-cog icone-config"></i>
+            <i class="fas fa-user-circle icone-perfil"></i>
+        </div>
+    </header>
+
+    <main class="principal">
+        <div class="configuracoes-container">
+            <h1 class="configuracoes-titulo">Minha Conta - Shared Cooking</h1>
+            
+            <div id="mensagemStatus" class="mensagem-status"></div>
+            
+            <!-- Seção de Estatísticas -->
+            <section class="configuracoes-secao">
+                <h3>Minha Atividade</h3>
+                <div class="estatisticas-usuario">
+                    <div class="estatistica-card">
+                        <div class="estatistica-numero" id="totalReceitas">12</div>
+                        <div class="estatistica-label">Receitas Publicadas</div>
+                    </div>
+                    <div class="estatistica-card">
+                        <div class="estatistica-numero" id="totalCurtidas">156</div>
+                        <div class="estatistica-label">Curtidas Recebidas</div>
+                    </div>
+                    <div class="estatistica-card">
+                        <div class="estatistica-numero" id="totalSeguidores">89</div>
+                        <div class="estatistica-label">Seguidores</div>
+                    </div>
+                    <div class="estatistica-card">
+                        <div class="estatistica-numero" id="totalComentarios">47</div>
+                        <div class="estatistica-label">Comentários</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="configuracoes-secao">
+                <h3>Perfil Público</h3>
+                
+                <div class="configuracoes-avatar">
+                    <div class="avatar-preview" id="avatarPreview">
+                        <i class="fas fa-user-circle icone-padrao"></i>
+                    </div>
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput" accept="image/*">
+                        <label for="avatarInput">Escolher Foto</label>
+                        <button class="avatar-remover" id="removerAvatar">Remover Foto</button>
+                    </div>
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <label for="nomeUsuario">Nome de Usuário</label>
+                    <input type="text" id="nomeUsuario" placeholder="Seu nome de usuário">
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <label for="bioUsuario">Biografia Culinária</label>
+                    <textarea id="bioUsuario" placeholder="Conte sobre suas especialidades culinárias, ingredientes favoritos, experiência na cozinha..."></textarea>
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <label for="nivelCulinario">Nível Culinário</label>
+                    <select id="nivelCulinario">
+                        <option value="iniciante">Iniciante</option>
+                        <option value="intermediario">Cozinheiro Doméstico</option>
+                        <option value="avancado">Chef Amador</option>
+                        <option value="profissional">Profissional</option>
+                    </select>
+                </div>
+            </section>
+            
+            <section class="configuracoes-secao">
+                <h3>Preferências Culinárias</h3>
+                
+                <div class="configuracoes-grupo">
+                    <label>Tipos de Culinária que Pratico</label>
+                    <div class="preferencias-culinarias">
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-brasileira" value="brasileira">
+                            <label for="culinaria-brasileira">Brasileira</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-italiana" value="italiana">
+                            <label for="culinaria-italiana">Italiana</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-oriental" value="oriental">
+                            <label for="culinaria-oriental">Oriental</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-vegetariana" value="vegetariana">
+                            <label for="culinaria-vegetariana">Vegetariana</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-vegana" value="vegana">
+                            <label for="culinaria-vegana">Vegana</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-fitness" value="fitness">
+                            <label for="culinaria-fitness">Fitness</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-sobremesas" value="sobremesas">
+                            <label for="culinaria-sobremesas">Sobremesas</label>
+                        </div>
+                        <div class="culinaria-item">
+                            <input type="checkbox" id="culinaria-rapida" value="rapida">
+                            <label for="culinaria-rapida">Comida Rápida</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="configuracoes-checkbox">
+                    <input type="checkbox" id="receberNovidades">
+                    <label for="receberNovidades">Receber novidades sobre receitas e dicas culinárias</label>
+                </div>
+                
+                <div class="configuracoes-checkbox">
+                    <input type="checkbox" id="perfilPublico">
+                    <label for="perfilPublico">Meu perfil é público (qualquer pessoa pode ver minhas receitas)</label>
+                </div>
+                
+                <div class="configuracoes-checkbox">
+                    <input type="checkbox" id="notificacoesComentarios">
+                    <label for="notificacoesComentarios">Receber notificações de novos comentários</label>
+                </div>
+            </section>
+            
+            <!-- NOVA SEÇÃO: Configurações Gerais -->
+            <section class="configuracoes-secao">
+                <h3>Configurações Gerais</h3>
+                
+                <div class="configuracoes-gerais-grid">
+                    <div class="configuracoes-grupo">
+                        <label for="idiomaSite">Idioma do Site</label>
+                        <select id="idiomaSite">
+                            <option value="pt-br">Português (Brasil)</option>
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </div>
+                    
+                    <div class="configuracoes-grupo">
+                        <label for="temaSite">Tema do Site</label>
+                        <select id="temaSite">
+                            <option value="claro">Claro</option>
+                            <option value="escuro">Escuro</option>
+                            <option value="auto">Automático (Sistema)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <label for="emailAtual">E-mail Atual</label>
+                    <input type="email" id="emailAtual" placeholder="Seu e-mail atual" readonly>
+                    <button class="toggle-senha" id="alterarEmailBtn">Alterar E-mail</button>
+                    
+                    <div class="senha-campos hidden" id="camposEmail">
+                        <input type="email" id="novoEmail" placeholder="Novo e-mail">
+                        <input type="password" id="senhaConfirmarEmail" placeholder="Confirme sua senha para alterar o e-mail">
+                    </div>
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <label for="senhaAtual">Senha</label>
+                    <input type="password" id="senhaAtual" placeholder="Sua senha atual" readonly>
+                    <button class="toggle-senha" id="alterarSenhaBtn">Alterar Senha</button>
+                    
+                    <div class="senha-campos hidden" id="camposSenha">
+                        <input type="password" id="novaSenha" placeholder="Nova senha">
+                        <input type="password" id="confirmarSenha" placeholder="Confirmar nova senha">
+                    </div>
+                </div>
+                
+                
+                
+                <div class="configuracoes-checkbox">
+                    <input type="checkbox" id="comentariosModerados">
+                    <label for="comentariosModerados">Moderar comentários antes de publicar</label>
+                </div>
+            </section>
+            
+            <section class="configuracoes-secao configuracoes-perigo">
+                <h3>Gerenciar Conta</h3>
+                
+                <div class="configuracoes-grupo">
+                    <p>Exportar todos os meus dados (receitas, comentários, favoritos)</p>
+                    <button class="botao-salvar" id="exportarDadosBtn">Exportar Dados</button>
+                </div>
+                
+                <div class="configuracoes-grupo">
+                    <p>Excluir permanentemente minha conta e todos os meus dados. Esta ação não pode ser desfeita.</p>
+                    <button class="botao-perigo" id="excluirContaBtn">Excluir Minha Conta</button>
+                </div>
+            </section>
+            
+            <div class="configuracoes-botoes">
+                <button class="botao-cancelar" id="cancelarBtn">Cancelar</button>
+                <button class="botao-salvar" id="salvarBtn">Salvar Alterações</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de confirmação para exclusão de conta -->
+    <div class="modal" id="modalExcluirConta">
+        <div class="modal-conteudo">
+            <h3 class="modal-titulo">Confirmar Exclusão de Conta</h3>
+            <p>Tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados, incluindo receitas e favoritos, serão permanentemente removidos.</p>
+            <p>Digite "EXCLUIR" no campo abaixo para confirmar:</p>
+            <input type="text" id="confirmacaoExclusao" placeholder="Digite EXCLUIR">
+            <div class="modal-botoes">
+                <button class="botao-cancelar" id="cancelarExclusaoBtn">Cancelar</button>
+                <button class="botao-perigo" id="confirmarExclusaoBtn" disabled>Excluir Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="rodape">
+        <p>&copy; 2025 Shared Cooking. Todos os direitos reservados.</p>
+        <div class="links-rodape">
+            <a href="#">Termos de Uso</a> |
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <script src="configuracao.js"></script>
+</body>
+</html>

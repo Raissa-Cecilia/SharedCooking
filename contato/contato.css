@@ -94,6 +94,8 @@ body {
 
 .secao-contato {
     padding: 20px 0;
+    margin: 15px;
+    
 }
 
 .secao-contato h1 {
@@ -189,71 +191,7 @@ body {
     background-color: #7b2929; /* Tom mais claro de marrom/vermelho */
 }
 
-/* Informações de Contato (Aside) */
-.info-contato {
-    flex: 1; /* Ocupa o espaço restante (cerca de 1/3) */
-    background-color: rgba(240, 230, 140, 0.3); /* Usa o estilo da Dica da Semana para manter a consistência */
-    border: 1px solid var(--cor-destaque-claro);
-    padding: 30px;
-    border-radius: 10px;
-    color: var(--cor-texto-claro);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
-.info-contato h2 {
-    font-size: 1.8em;
-    margin-bottom: 25px;
-    color: var(--cor-destaque-claro);
-    border-left: none; /* Remove a linha de destaque do H2 da home */
-    text-align: center;
-}
-
-.detalhe-contato {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.icone-info {
-    font-size: 1.8em;
-    color: var(--cor-destaque-claro);
-    width: 30px; /* Garante que os ícones fiquem alinhados */
-    text-align: center;
-}
-
-.detalhe-contato h3 {
-    font-size: 1.1em;
-    margin-bottom: 2px;
-}
-
-.detalhe-contato p {
-    font-size: 0.9em;
-    color: #ddd;
-}
-
-.redes-sociais {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    text-align: center;
-}
-
-.redes-sociais h3 {
-    color: var(--cor-destaque-claro);
-    margin-bottom: 15px;
-}
-
-.redes-sociais a {
-    color: var(--cor-texto-claro);
-    font-size: 2em;
-    margin: 0 10px;
-    transition: color 0.3s;
-}
-
-.redes-sociais a:hover {
-    color: var(--cor-destaque-claro);
-}
 
 /* Responsividade Básica (Opcional, mas recomendado) */
 @media (max-width: 900px) {
