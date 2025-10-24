@@ -93,6 +93,7 @@ body {
     cursor: pointer;
 }
 
+
 /* --- Estilos do Conteúdo Principal (MAIN) --- */
 
 .principal {
@@ -308,6 +309,9 @@ h2 {
     font-size: 1em;
 }
 
+/* =============================================================================
+   ESTILOS ADICIONAIS PARA AS NOVAS FUNCIONALIDADES
+   ============================================================================= */
 
 /* --- Estilos do Rodapé --- */
 .rodape {
@@ -335,4 +339,559 @@ h2 {
 .links-rodape a:hover {
     color: var(--cor-botao-escura);
     text-decoration: underline;
+}
+
+
+/*JS*/
+/* =============================================================================
+   ESTILOS ADICIONAIS PARA AS NOVAS FUNCIONALIDADES
+   ============================================================================= */
+
+/* Cartões de receitas recentes - mesmo estilo dos destaques */
+.cartao-recente {
+    background-color: var(--cor-texto-claro);
+    border-radius: 10px;
+    width: 22%;
+    min-width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: var(--cor-texto-escuro);
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.cartao-recente:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay na foto da receita */
+.foto-receita {
+    position: relative;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    color: var(--cor-texto-claro);
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.foto-receita::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    transition: opacity 0.3s;
+}
+
+.foto-receita:hover::before {
+    opacity: 0.7;
+}
+
+.overlay-foto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.foto-receita:hover .overlay-foto {
+    opacity: 1;
+}
+
+.btn-overlay {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--cor-texto-escuro);
+}
+
+.btn-overlay:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.btn-overlay.active {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Badge de categoria */
+.badge-categoria {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--cor-destaque-claro);
+    color: var(--cor-botao-escura);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+/* Informações rápidas */
+.info-rapida {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.dificuldade {
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.7em;
+}
+
+.dificuldade.fácil {
+    background: #d4edda;
+    color: #155724;
+}
+
+.dificuldade.médio {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.dificuldade.difícil {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Botão de salvar */
+.salvar-btn.active {
+    color: #f39c12;
+}
+
+/* Modal de detalhes */
+.modal-detalhes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 20px;
+}
+
+.modal-detalhes.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-conteudo {
+    background: white;
+    border-radius: 15px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+}
+
+.modal-detalhes.show .modal-conteudo {
+    transform: translateY(0);
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-cabecalho {
+    padding: 30px 30px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-cabecalho h2 {
+    color: var(--cor-texto-escuro);
+    margin-bottom: 10px;
+    border-left: none;
+    padding-left: 0;
+}
+
+.modal-metadados {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.modal-metadados span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.modal-imagem {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.btn-expandir-imagem {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-imagem.expandida {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+}
+
+.modal-interacoes {
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    gap: 20px;
+}
+
+.modal-descricao {
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-descricao p {
+    color: var(--cor-texto-escuro);
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.modal-secoes {
+    padding: 20px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.secao h3 {
+    color: var(--cor-texto-escuro);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.controles-lista, .controles-preparo {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.controles-lista button, .controles-preparo button {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+}
+
+.controles-lista button:hover, .controles-preparo button:hover {
+    background: #e9ecef;
+}
+
+.lista-ingredientes {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-ingredientes li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.lista-ingredientes input[type="checkbox"] {
+    margin: 0;
+}
+
+.lista-preparo {
+    list-style: none;
+    padding: 0;
+    counter-reset: passo;
+}
+
+.lista-preparo li {
+    counter-increment: passo;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    position: relative;
+}
+
+.lista-preparo li.concluido {
+    background: #d4edda;
+    opacity: 0.8;
+}
+
+.passo-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.numero-passo {
+    background: var(--cor-botao-escura);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.btn-marcar-passo {
+    background: transparent;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: auto;
+}
+
+.lista-preparo li.concluido .btn-marcar-passo {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.conteudo-passo {
+    color: var(--cor-texto-escuro);
+    line-height: 1.5;
+}
+
+.modal-rodape {
+    padding: 20px 30px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.avaliacao-receita h4 {
+    margin-bottom: 10px;
+    color: var(--cor-texto-escuro);
+}
+
+.estrelas-avaliacao {
+    display: flex;
+    gap: 5px;
+}
+
+.estrelas-avaliacao .fa-star {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-size: 1.2em;
+}
+
+.estrelas-avaliacao .fa-star.hover,
+.estrelas-avaliacao .fa-star.ativa {
+    color: #ffc107;
+}
+
+.botao-fazer-depois {
+    background: var(--cor-destaque-claro);
+    color: var(--cor-botao-escura);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.botao-fazer-depois:hover {
+    background: #f7d75c;
+}
+
+/* Timer ativo */
+.timer-ativo {
+    background: #007bff !important;
+    color: white !important;
+}
+
+.timer-finalizado {
+    background: #28a745 !important;
+    color: white !important;
+}
+
+/* Feedback messages */
+.feedback-mensagem {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1002;
+    transform: translateX(100%);
+    transition: transform 0.3s;
+    max-width: 300px;
+}
+
+.feedback-mensagem.show {
+    transform: translateX(0);
+}
+
+.feedback-mensagem.success {
+    border-left: 4px solid #28a745;
+}
+
+.feedback-mensagem.error {
+    border-left: 4px solid #dc3545;
+}
+
+.feedback-mensagem.info {
+    border-left: 4px solid #17a2b8;
+}
+
+.feedback-mensagem.warning {
+    border-left: 4px solid #ffc107;
+}
+
+.feedback-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cor-texto-escuro);
+}
+
+/* Estados de carregamento e erro */
+.carregando {
+    text-align: center;
+    padding: 40px;
+    color: var(--cor-texto-claro);
+    font-style: italic;
+}
+
+.sem-resultados {
+    text-align: center;
+    padding: 40px;
+    color: var(--cor-texto-claro);
+}
+
+.sem-resultados i {
+    font-size: 3em;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.botao-sugerir {
+    background: var(--cor-destaque-claro);
+    color: var(--cor-botao-escura);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Confete animation */
+.confete {
+    position: fixed;
+    pointer-events: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .modal-secoes {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-interacoes {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .modal-rodape {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .cartao-destaque, .cartao-recente {
+        width: 100%;
+        min-width: auto;
+    }
 }
