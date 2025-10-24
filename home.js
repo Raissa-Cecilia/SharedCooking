@@ -332,6 +332,22 @@ async function buscarReceitasRecentes() {
             dificuldade: "Médio",
             porcoes: 8,
             dataPublicapia: "2025-01-23"
+        },
+        {
+            id: 17,
+            nome: "Pudim de Leite Condensado Cremoso",
+            fotoUrl: "imagens/PudimLeite.jpg", 
+            resumo: "O pudim perfeito: caramelizado por fora, cremoso por dentro. Receita tradicional que nunca falha e conquista todos os paladares.",
+            curtidas: 2200,
+            comentarios: 156,
+            favoritos: 890,
+            categoria: "Sobremesas",
+            ingredientes: ["Leite Condensado", "Leite", "Ovos", "Açúcar", "Baunilha"],
+            modoPreparo: ["1. Derreta o açúcar para a calda...", "2. Bata os ingredientes...", "3. Cozinhe em banho-maria..."],
+            tempoPreparo: "1 hora + 6h geladeira",
+            dificuldade: "Médio",
+            porcoes: 8,
+            dataPublicacao: "2025-01-27"
         }
     ];
 
