@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shared Cooking - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+
+</head>
+<body>
+    
+  <!-- Tela de Login -->
+  <div class="container" id="loginContainer">
+    <h1>MENU</h1>
+    <img src="imagens/logoIdea1.png" alt="Logo Shared Cooking" class="logo">
+    <form>
+      <label for="login">Login:</label>
+      <input type="text" id="login" placeholder="Digite seu login" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+      <button type="button" onclick="acessar()">Acesse já!</button>
+    </form>
+    <p>Não tem conta? <a href="#" onclick="mostrarCadastro()">Cadastre-se</a></p>
+  </div>
+
+  <!-- Tela de Cadastro -->
+  <div class="container" id="cadastroContainer" style="display:none;">
+    <h1>CADASTRO</h1>
+    <img src="imagens/logoIdea1.png" alt="Logo Shared Cooking" class="logo">
+
+    <form>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+      <label for="usuario">Usuário:</label>
+      <input type="text" id="usuario" placeholder="Crie um usuário" required>
+
+      <label for="senhaCadastro">Senha:</label>
+      <input type="password" id="senhaCadastro" placeholder="Crie uma senha" required>
+
+      <button type="button" onclick="cadastrar()">Cadastrar</button>
+    </form>
+    <p>Já tem conta? <a href="#" onclick="mostrarLogin()">Voltar ao login</a></p>
+  </div>
+
+  <script>
+    function mostrarCadastro() {
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('cadastroContainer').style.display = 'block';
+    }
+
+    function mostrarLogin() {
+      document.getElementById('cadastroContainer').style.display = 'none';
+      document.getElementById('loginContainer').style.display = 'block';
+    }
+
+    function acessar() {
+      alert('Login efetuado com sucesso (simulação)');
+    }
+
+    function cadastrar() {
+      alert('Cadastro realizado com sucesso (simulação)');
+      mostrarLogin();
+    }
+  </script>
+
+</body>
+</html>
