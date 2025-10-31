@@ -75,18 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return num + '%';
     }
 
-    // Sistema de newsletter simples
-    const newsletterForm = document.createElement('div');
-    newsletterForm.innerHTML = `
-        <div class="mt-4">
-            <h4 class="mb-3">Receba novidades por email</h4>
-            <div class="d-flex gap-2 justify-content-center flex-wrap">
-                <input type="email" id="newsletterEmail" class="form-control" placeholder="Seu melhor email" style="max-width: 300px;">
-                <button class="btn botao-personalizado" onclick="inscreverNewsletter()">Inscrever</button>
-            </div>
-            <p id="newsletterFeedback" class="mt-2 small"></p>
-        </div>
-    `;
+    
     
     document.querySelector('#contato .text-center').appendChild(newsletterForm);
 
