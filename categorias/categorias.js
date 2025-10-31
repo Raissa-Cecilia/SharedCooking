@@ -1,25 +1,24 @@
-let currentPage = 0;
-        const totalPages = 3;
 
-        function moveCarousel(direction) {
-            currentPage += direction;
-            
-            if (currentPage < 0) currentPage = totalPages - 1;
-            if (currentPage >= totalPages) currentPage = 0;
-            
-            updateDots();
+document.addEventListener('DOMContentLoaded', function() {
+    
+    function embaralharCards() {
+        const carousel = document.querySelector('.carousel');
+        const cards = Array.from(carousel.querySelectorAll('.category-card'));
+        
+        for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cards[i], cards[j]] = [cards[j], cards[i]];
         }
-
-        function updateDots() {
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentPage);
-            });
+    
+        while (carousel.firstChild) {
+            carousel.removeChild(carousel.firstChild);
         }
-
-        document.querySelectorAll('.dot').forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentPage = index;
-                updateDots();
-            });
+        
+        cards.forEach(card => {
+            carousel.appendChild(card);
         });
+    }
+    
+    // Executar a função quando a página carregar
+    embaralharCards();
+});

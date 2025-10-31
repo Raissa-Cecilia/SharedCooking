@@ -4,7 +4,6 @@
     padding: 0;
 } 
 :root {
-    /* Definição das cores principais do layout */
     --cor-fundo-principal: #5e1c1c; 
     --cor-destaque-claro: #f0e68c; 
     --cor-botao-escura: #5e1c1c; 
