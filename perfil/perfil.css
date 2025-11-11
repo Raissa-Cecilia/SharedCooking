@@ -324,4 +324,31 @@ body {
     opacity: 0.8;
 }
 
+/* ----- RODAPÉ -----*/
+
+.rodape {
+    background-color: var(--cor-texto-claro); 
+    color: var(--cor-texto-escuro);
+    padding: 30px 40px;
+    text-align: center;
+    margin-top: 50px; 
+    width: 100%;
+}
+
+.rodape p {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.links-rodape a {
+    color: var(--cor-texto-escuro);
+    text-decoration: none;
+    font-size: 0.85em;
+    padding: 0 5px;
+}
+
+.links-rodape a:hover {
+    text-decoration: underline;
+}
+
 
