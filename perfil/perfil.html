@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Cooking</title>
     <link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" href="perfil.js">
 </head>
 <body>
    <header class="cabecario">
@@ -27,6 +28,34 @@
             <i class="fas fa-user-circle icone-perfil"></i>
         </div>
     </header>
+
+    <main class="perfil-container">
+       
+        <div class="perfil-card">
+            <div class="perfil-header">
+                <div class="perfil-avatar" id="perfilAvatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h1 class="perfil-nome" id="perfilNome">Nome do Usuário</h1>
+            </div>
+
+            <div class="perfil-info">
+                <div class="perfil-secao">
+                    <h3>Biografia do usuário</h3>
+                    <p id="perfilBiografia">Carregando biografia...</p>
+                </div>
+
+                <div class="perfil-secao">
+                    <h3>Nível Culinário</h3>
+                    <p id="perfilNivel">Carregando nível...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="receitas-grid" id="receitasGrid">
+           
+        </div>
+    </main>
 
 
 
