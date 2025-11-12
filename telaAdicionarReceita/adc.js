@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Categorias disponíveis
     const categoriasDisponiveis = [
-        "Sobremesas", "Massas", "Carnes", "Vegetariano", "Vegano", 
-        "Low Carb", "Sem Glúten", "Sem Lactose", "Saladas", "Sopas",
-        "Frutos do Mar", "Aves", "Bolos", "Pães", "Bebidas",
-        "Café da Manhã", "Almoço", "Jantar", "Lanche", "Petiscos"
+        "BRASILEIRA", "VEGANA", "ITALIANA", "JAPONESA", "SOBREMESAS", 
+        "LANCHES", "AÇAÍ", "MEXICANA", "AFRICANA", "SOPAS E CALDOS",
+        "BEBIDAS", "PÃES E BISCOITOS", "TAILANDESA", "CHINESA", "OUTROS"
+        
     ];
     
     // ========== FUNCIONALIDADE DE UPLOAD DE MÍDIA ==========
