@@ -1,369 +1,681 @@
-class UserDataBase{
-    constructor() {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser')||'null' );
-    }
-    EstaLogado(){
-        return this.currentUser !=null;
-    }
-    getCurrentUser(){
-        return this.currentUser;
-    }
-    naoEstaLogado(){
-        return this.currentUser=null;
-        localStorage.removeItem('currentUser');
-    }
-}
-// Instancia do Banco de Dados //
-const userDB = new  UserDataBase();
 
-//Elementos DOM//
-// Elementos do DOM (corrigidos para os IDs reais do HTML)
+
+// =============================================================================
+// 1. CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
+// =============================================================================
+
+const API_BASE_URL = 'http://localhost:3000/api'; // URL do backend
+
+// Estado da aplicação de perfil
+const perfilState = {
+    usuarioLogado: null,
+    receitasUsuario: [],
+    carregando: false
+};
+
+// Elementos DOM
 const elementos = {
-    perfilAvatar: document.getElementById('perfilAvatar'),
     perfilNome: document.getElementById('perfilNome'),
+    perfilAvatar: document.getElementById('perfilAvatar'),
     perfilBiografia: document.getElementById('perfilBiografia'),
     perfilNivel: document.getElementById('perfilNivel'),
-    listaReceitas: document.getElementById('listaReceitas')
+    receitasGrid: document.querySelector('.receitas-grid')
 };
 
-// Mapeamento de níveis culinários
-const niveisMap = {
-    'iniciante': 'Iniciante - Começando na cozinha',
-    'intermediario': 'Intermediário - Cozinheiro Doméstico',
-    'avancado': 'Avançado - Chef Amador',
-    'profissional': 'Profissional - Expert em Culinária'
-};
+// =============================================================================
+// 2. FUNÇÕES DE AUTENTICAÇÃO E VERIFICAÇÃO
+// =============================================================================
 
-// Função para buscar receitas do usuário do localStorage
-function buscarReceitasDoUsuario(userId) {
-    // Buscar todas as receitas salvas
-    const todasReceitas = JSON.parse(localStorage.getItem('sharedCookingRecipes') || '[]');
+/**
+ * Verifica se o usuário está logado
+ * @returns {object|null} Dados do usuário ou null
+ */
+function verificarUsuarioLogado() {
+    const usuarioJSON = localStorage.getItem('usuarioLogado');
     
-    // Filtrar apenas as receitas do usuário atual
-    return todasReceitas.filter(receita => receita.autorId === userId);
+    if (!usuarioJSON) {
+        console.warn('Usuário não está logado');
+        redirecionarParaLogin();
+        return null;
+    }
+    
+    try {
+        const usuario = JSON.parse(usuarioJSON);
+        
+        if (usuario.token) {
+            return usuario;
+        } else {
+            console.warn('Token inválido ou expirado');
+            redirecionarParaLogin();
+            return null;
+        }
+    } catch (error) {
+        console.error('Erro ao parsear dados do usuário:', error);
+        redirecionarParaLogin();
+        return null;
+    }
 }
 
-// Função para carregar dados do perfil
-function carregarPerfilUsuario() {
-    // Verificar se o usuário está logado
-    if (!userDB.isLoggedIn()) {
-        mostrarNotificacao('Você precisa estar logado para ver o perfil.', 'warning');
-        setTimeout(() => {
-            window.location.href = '../login/login.html';
-        }, 2000);
+/**
+ * Redireciona para a página de login
+ */
+/*
+function redirecionarParaLogin() {
+    mostrarFeedback('Você precisa estar logado para acessar esta página', 'warning');
+    setTimeout(() => {
+        window.location.href = '../login/login.html';
+    }, 2000);
+}
+    */
+
+// =============================================================================
+// 3. FUNÇÕES DE REQUISIÇÃO À API
+// =============================================================================
+
+/**
+ * Busca os dados completos do usuário no backend
+ * @param {number} userId - ID do usuário
+ * @returns {Promise<object>} Dados do usuário
+ */
+async function buscarDadosUsuario(userId) {
+    const usuario = verificarUsuarioLogado();
+    
+    if (!usuario) return null;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/usuarios/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            }
+        });
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Sessão expirada. Faça login novamente.');
+            }
+            throw new Error('Erro ao buscar dados do usuário');
+        }
+        
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error('Erro na requisição de dados do usuário:', error);
+        mostrarFeedback('Erro ao carregar dados do perfil', 'error');
+        throw error;
+    }
+}
+
+/**
+ * Busca as receitas criadas pelo usuário
+ * @param {number} userId - ID do usuário
+ * @returns {Promise<array>} Array de receitas
+ */
+async function buscarReceitasUsuario(userId) {
+    const usuario = verificarUsuarioLogado();
+    
+    if (!usuario) return [];
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/receitas/usuario/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Erro ao buscar receitas do usuário');
+        }
+        
+        const receitas = await response.json();
+        return receitas;
+        
+    } catch (error) {
+        console.error('Erro ao buscar receitas:', error);
+        mostrarFeedback('Erro ao carregar suas receitas', 'error');
+        return [];
+    }
+}
+
+/**
+ * Atualiza dados do perfil no backend
+ * @param {number} userId - ID do usuário
+ * @param {object} dadosAtualizados - Dados a serem atualizados
+ * @returns {Promise<boolean>} Sucesso ou falha
+ */
+async function atualizarPerfilUsuario(userId, dadosAtualizados) {
+    const usuario = verificarUsuarioLogado();
+    
+    if (!usuario) return false;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/usuarios/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Erro ao atualizar perfil');
+        }
+        
+        const resultado = await response.json();
+        
+        // Atualiza dados no localStorage
+        const usuarioAtualizado = { ...usuario, ...resultado };
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+        
+        mostrarFeedback('Perfil atualizado com sucesso!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Erro ao atualizar perfil:', error);
+        mostrarFeedback('Erro ao atualizar perfil', 'error');
+        return false;
+    }
+}
+
+/**
+ * Deleta uma receita do usuário
+ * @param {number} receitaId - ID da receita
+ * @returns {Promise<boolean>} Sucesso ou falha
+ */
+async function deletarReceita(receitaId) {
+    const usuario = verificarUsuarioLogado();
+    
+    if (!usuario) return false;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/receitas/${receitaId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Erro ao deletar receita');
+        }
+        
+        mostrarFeedback('Receita deletada com sucesso!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Erro ao deletar receita:', error);
+        mostrarFeedback('Erro ao deletar receita', 'error');
+        return false;
+    }
+}
+
+// =============================================================================
+// 4. FUNÇÕES DE RENDERIZAÇÃO
+// =============================================================================
+
+/**
+ * Renderiza os dados do perfil do usuário
+ * @param {object} dadosUsuario - Dados do usuário
+ */
+function renderizarPerfilUsuario(dadosUsuario) {
+    if (!dadosUsuario) return;
+    
+    // Atualiza nome
+    if (elementos.perfilNome) {
+        elementos.perfilNome.textContent = dadosUsuario.nome || 'Usuário Sem Nome';
+    }
+    
+    // Atualiza avatar
+    if (elementos.perfilAvatar) {
+        if (dadosUsuario.fotoPerfil) {
+            elementos.perfilAvatar.innerHTML = `
+                <img src="${dadosUsuario.fotoPerfil}" alt="${dadosUsuario.nome}">
+            `;
+        } else {
+            elementos.perfilAvatar.innerHTML = '<i class="fas fa-user-circle"></i>';
+        }
+    }
+    
+    // Atualiza biografia
+    if (elementos.perfilBiografia) {
+        elementos.perfilBiografia.textContent = dadosUsuario.biografia || 
+            'Este usuário ainda não adicionou uma biografia.';
+    }
+    
+    // Atualiza nível culinário
+    if (elementos.perfilNivel) {
+        elementos.perfilNivel.textContent = dadosUsuario.nivelCulinario || 'Iniciante';
+    }
+    
+    // Adiciona botão de editar perfil
+    adicionarBotaoEditarPerfil();
+}
+
+/**
+ * Renderiza as receitas do usuário
+ * @param {array} receitas - Array de receitas
+ */
+function renderizarReceitasUsuario(receitas) {
+    if (!elementos.receitasGrid) return;
+    
+    elementos.receitasGrid.innerHTML = '';
+    
+    if (!receitas || receitas.length === 0) {
+        elementos.receitasGrid.innerHTML = `
+            <div class="mensagem-vazia">
+                <i class="fas fa-utensils"></i>
+                <h2>Nenhuma receita ainda</h2>
+                <p>Você ainda não criou nenhuma receita. Comece agora!</p>
+            </div>
+        `;
         return;
     }
-
-    const usuario = userDB.getCurrentUser();
     
-    // Buscar dados adicionais das configurações (se existirem)
-    const dadosConfiguracao = JSON.parse(localStorage.getItem('userConfig') || '{}');
-    
-    // Atualizar nome
-    if (elementos.perfilNome) {
-        elementos.perfilNome.textContent = usuario.name || 'Usuário Shared Cooking';
-    }
-    
-    // Atualizar avatar
-    if (elementos.perfilAvatar && dadosConfiguracao.avatar) {
-        elementos.perfilAvatar.innerHTML = `<img src="${dadosConfiguracao.avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
-    }
-    
-    // Atualizar biografia
-    const biografia = dadosConfiguracao.bio || 
-        `Olá! Sou ${usuario.name}. Apaixonado(a) por culinária e sempre em busca de novas receitas e experiências gastronômicas para compartilhar com vocês!`;
-    
-    if (elementos.perfilBiografia) {
-        elementos.perfilBiografia.textContent = biografia;
-    }
-    
-    // Atualizar nível culinário
-    const nivel = dadosConfiguracao.nivelCulinario || 'intermediario';
-    const textoNivel = niveisMap[nivel] || 'Cozinheiro Doméstico';
-    
-    if (elementos.perfilNivel) {
-        elementos.perfilNivel.textContent = textoNivel;
-    }
-    
-    // Atualizar informações no cabeçalho (se tiver ícone de perfil)
-    atualizarCabecalho(usuario);
+    receitas.forEach(receita => {
+        const card = criarCardReceita(receita);
+        elementos.receitasGrid.appendChild(card);
+    });
 }
 
-// Função para atualizar o cabeçalho com informações do usuário
-function atualizarCabecalho(usuario) {
-    const iconePerfil = document.querySelector('.icone-perfil');
-    if (iconePerfil) {
-        iconePerfil.title = `Logado como: ${usuario.name}`;
-        iconePerfil.style.cursor = 'pointer';
-    }
-    
-    // Adicionar funcionalidade ao ícone de configurações
-    const iconeConfig = document.querySelector('.icone-config');
-    if (iconeConfig) {
-        iconeConfig.onclick = () => {
-            window.location.href = '../configuracoes/config.html';
-        };
-    }
-}
-
-// Criar card de receita
+/**
+ * Cria um card de receita usando as classes CSS existentes
+ * @param {object} receita - Dados da receita
+ * @returns {HTMLDivElement} Elemento do card
+ */
 function criarCardReceita(receita) {
-    const li = document.createElement('li');
-    li.className = 'receita-card';
+    const card = document.createElement('div');
+    card.className = 'receita-card';
+    card.setAttribute('data-id', receita.id);
     
-    li.innerHTML = `
+    card.innerHTML = `
         <div class="receita-imagem">
-            <img src="${receita.imagem || 'https://via.placeholder.com/300x200/6b2c2c/ffffff?text=' + encodeURIComponent(receita.titulo)}" 
-                 alt="${receita.titulo}"
-                 onerror="this.src='https://via.placeholder.com/300x200/6b2c2c/ffffff?text=Receita'">
-            ${receita.categoria ? `<span class="receita-categoria">${receita.categoria}</span>` : ''}
+            <img src="${receita.fotoUrl || '../imagens/placeholder.jpg'}" alt="${receita.nome}">
+            <span class="receita-categoria">${receita.categoria || 'Sem Categoria'}</span>
+            <span class="receita-badge">Minha Receita</span>
         </div>
+        
         <div class="receita-conteudo">
-            <h3 class="receita-titulo">${receita.titulo}</h3>
-            <p class="receita-descricao">${receita.descricao || 'Deliciosa receita caseira!'}</p>
-            
-            <div class="receita-info">
-                ${receita.tempo ? `
-                <div class="receita-tempo">
-                    <i class="fas fa-clock"></i>
-                    <span>${receita.tempo}</span>
-                </div>
-                ` : ''}
-                ${receita.dificuldade ? `
-                <div class="receita-dificuldade">
-                    <i class="fas fa-signal"></i>
-                    <span>${receita.dificuldade}</span>
-                </div>
-                ` : ''}
-            </div>
+            <h3 class="receita-titulo">${receita.nome}</h3>
+            <p class="receita-descricao">${receita.resumo || 'Sem descrição'}</p>
             
             <div class="receita-stats">
-                <span><i class="fas fa-heart"></i> ${receita.curtidas || 0}</span>
-                <span><i class="fas fa-eye"></i> ${receita.visualizacoes || 0}</span>
+                <span><i class="fas fa-heart"></i> ${receita.favoritos || 0}</span>
+                <span><i class="fas fa-thumbs-up"></i> ${receita.curtidas || 0}</span>
                 <span><i class="fas fa-comment"></i> ${receita.comentarios || 0}</span>
             </div>
             
-            <div class="receita-acoes">
-                <button class="btn-ver" onclick="verReceita('${receita.id}')">
-                    <i class="fas fa-eye"></i> Ver
+            <div class="receita-info">
+                <span class="receita-tempo"><i class="fas fa-clock"></i> ${receita.tempoPreparo || 'N/A'}</span>
+                <span class="receita-dificuldade"><i class="fas fa-signal"></i> ${receita.dificuldade || 'N/A'}</span>
+            </div>
+            
+            <button class="receita-botao btn-ver-receita" data-id="${receita.id}">
+                Ver Opções
+            </button>
+        </div>
+    `;
+    
+    // Adiciona eventos ao card
+    adicionarEventosCardReceita(card, receita);
+    
+    return card;
+}
+
+/**
+ * Adiciona eventos aos elementos do card de receita
+ * @param {HTMLElement} card - Elemento do card
+ * @param {object} receita - Dados da receita
+ */
+function adicionarEventosCardReceita(card, receita) {
+    const btnVer = card.querySelector('.btn-ver-receita');
+    btnVer.addEventListener('click', () => {
+        abrirOpcoesReceita(receita);
+    });
+    
+    // Evento de clique no card inteiro
+    card.addEventListener('click', (e) => {
+        if (!e.target.closest('.receita-botao')) {
+            abrirOpcoesReceita(receita);
+        }
+    });
+}
+
+/**
+ * Abre menu de opções para a receita
+ * @param {object} receita - Dados da receita
+ */
+function abrirOpcoesReceita(receita) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-opcoes';
+    modal.innerHTML = `
+        <div class="modal-conteudo-opcoes">
+            <button class="fechar-modal">&times;</button>
+            <h2>${receita.nome}</h2>
+            <div class="opcoes-lista">
+                <button class="opcao-btn btn-visualizar" data-id="${receita.id}">
+                    <i class="fas fa-eye"></i>
+                    <span>Visualizar Receita</span>
                 </button>
-                <button class="btn-editar" onclick="editarReceita('${receita.id}')">
-                    <i class="fas fa-edit"></i> Editar
+                <button class="opcao-btn btn-editar" data-id="${receita.id}">
+                    <i class="fas fa-edit"></i>
+                    <span>Editar Receita</span>
                 </button>
-                <button class="btn-excluir" onclick="excluirReceita('${receita.id}')">
-                    <i class="fas fa-trash"></i> Excluir
+                <button class="opcao-btn btn-deletar" data-id="${receita.id}">
+                    <i class="fas fa-trash"></i>
+                    <span>Deletar Receita</span>
                 </button>
             </div>
         </div>
     `;
     
-    return li;
+    document.body.appendChild(modal);
+    
+    // Adiciona eventos
+    const btnFechar = modal.querySelector('.fechar-modal');
+    const btnVisualizar = modal.querySelector('.btn-visualizar');
+    const btnEditar = modal.querySelector('.btn-editar');
+    const btnDeletar = modal.querySelector('.btn-deletar');
+    
+    const fecharModal = () => {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+        document.body.style.overflow = '';
+    };
+    
+    btnFechar.addEventListener('click', fecharModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) fecharModal();
+    });
+    
+    btnVisualizar.addEventListener('click', () => {
+        window.location.href = `../homePage/index.html?receita=${receita.id}`;
+    });
+    
+    btnEditar.addEventListener('click', () => {
+        window.location.href = `../telaAdicionarReceita/telaAdc.html?editar=${receita.id}`;
+    });
+    
+    btnDeletar.addEventListener('click', async () => {
+        const confirmar = confirm(`Tem certeza que deseja deletar a receita "${receita.nome}"?`);
+        
+        if (confirmar) {
+            const sucesso = await deletarReceita(receita.id);
+            
+            if (sucesso) {
+                fecharModal();
+                
+                // Remove o card da interface
+                const cardElement = document.querySelector(`.receita-card[data-id="${receita.id}"]`);
+                if (cardElement) {
+                    cardElement.remove();
+                }
+                
+                // Atualiza o estado
+                perfilState.receitasUsuario = perfilState.receitasUsuario.filter(
+                    r => r.id !== receita.id
+                );
+                
+                // Se não houver mais receitas, exibe mensagem
+                if (perfilState.receitasUsuario.length === 0) {
+                    renderizarReceitasUsuario([]);
+                }
+            }
+        }
+    });
+    
+    // Animação
+    setTimeout(() => modal.classList.add('show'), 10);
+    document.body.style.overflow = 'hidden';
 }
 
-// Carregar receitas do usuário
-function carregarReceitas() {
-    if (!elementos.listaReceitas) return;
+/**
+ * Adiciona botão de editar perfil
+ */
+function adicionarBotaoEditarPerfil() {
+    const perfilHeader = document.querySelector('.perfil-header');
     
-    const usuario = userDB.getCurrentUser();
+    if (!perfilHeader) return;
+    
+    // Remove botão anterior se existir
+    const botaoExistente = perfilHeader.querySelector('.btn-editar-perfil');
+    if (botaoExistente) {
+        botaoExistente.remove();
+    }
+    
+    const botaoEditar = document.createElement('button');
+    botaoEditar.className = 'btn-editar-perfil';
+    botaoEditar.innerHTML = '<i class="fas fa-edit"></i> Editar Perfil';
+    botaoEditar.addEventListener('click', abrirModalEditarPerfil);
+    
+    // Insere no cabeçalho
+    const nomeContainer = perfilHeader.querySelector('div');
+    if (nomeContainer) {
+        nomeContainer.appendChild(botaoEditar);
+    } else {
+        perfilHeader.appendChild(botaoEditar);
+    }
+}
+
+// =============================================================================
+// 5. MODAL DE EDIÇÃO DE PERFIL
+// =============================================================================
+
+/**
+ * Abre modal para editar perfil
+ */
+function abrirModalEditarPerfil() {
+    const usuario = perfilState.usuarioLogado;
+    
     if (!usuario) return;
     
-    // Buscar receitas do usuário
-    const receitasUsuario = buscarReceitasDoUsuario(usuario.id);
-    
-    // Limpar lista
-    elementos.listaReceitas.innerHTML = '';
-    
-    // Se não houver receitas, mostrar mensagem
-    if (receitasUsuario.length === 0) {
-        elementos.listaReceitas.innerHTML = `
-            <li class="mensagem-vazia">
-                <i class="fas fa-utensils" style="font-size: 3rem; color: #6b2c2c; margin-bottom: 1rem;"></i>
-                <h3>Nenhuma receita publicada ainda</h3>
-                <p>Comece a compartilhar suas receitas deliciosas com a comunidade!</p>
-                <button onclick="window.location.href='../telaAdicionarReceita/adc.html'" 
-                        style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #6b2c2c; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
-                    <i class="fas fa-plus"></i> Adicionar Primeira Receita
-                </button>
-            </li>
-        `;
-        return;
+    // Remove modal existente se houver
+    const modalExistente = document.querySelector('.modal-editar-perfil');
+    if (modalExistente) {
+        modalExistente.remove();
     }
     
-    // Adicionar receitas ao grid
-    receitasUsuario.forEach(receita => {
-        const card = criarCardReceita(receita);
-        elementos.listaReceitas.appendChild(card);
+    // Cria modal
+    const modal = document.createElement('div');
+    modal.className = 'modal-editar-perfil';
+    modal.innerHTML = `
+        <div class="modal-conteudo-editar">
+            <button class="fechar-modal">&times;</button>
+            <h2>Editar Perfil</h2>
+            
+            <form id="formEditarPerfil" class="form-editar-perfil">
+                <div class="form-grupo">
+                    <label for="editarNome">Nome:</label>
+                    <input type="text" id="editarNome" value="${usuario.nome || ''}" required>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="editarBiografia">Biografia:</label>
+                    <textarea id="editarBiografia" rows="4">${usuario.biografia || ''}</textarea>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="editarNivel">Nível Culinário:</label>
+                    <select id="editarNivel">
+                        <option value="Iniciante" ${usuario.nivelCulinario === 'Iniciante' ? 'selected' : ''}>Iniciante</option>
+                        <option value="Intermediário" ${usuario.nivelCulinario === 'Intermediário' ? 'selected' : ''}>Intermediário</option>
+                        <option value="Avançado" ${usuario.nivelCulinario === 'Avançado' ? 'selected' : ''}>Avançado</option>
+                        <option value="Profissional" ${usuario.nivelCulinario === 'Profissional' ? 'selected' : ''}>Profissional</option>
+                    </select>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="editarFoto">URL da Foto de Perfil:</label>
+                    <input type="url" id="editarFoto" value="${usuario.fotoPerfil || ''}" placeholder="https://exemplo.com/foto.jpg">
+                </div>
+                
+                <div class="form-acoes">
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Adiciona eventos
+    adicionarEventosModalEdicao(modal);
+    
+    // Animação de entrada
+    setTimeout(() => modal.classList.add('show'), 10);
+    
+    // Impede scroll
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Adiciona eventos ao modal de edição
+ * @param {HTMLElement} modal - Elemento do modal
+ */
+function adicionarEventosModalEdicao(modal) {
+    const btnFechar = modal.querySelector('.fechar-modal');
+    const btnCancelar = modal.querySelector('.btn-cancelar');
+    
+    const fecharModal = () => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = '';
+        }, 300);
+    };
+    
+    btnFechar.addEventListener('click', fecharModal);
+    btnCancelar.addEventListener('click', fecharModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            fecharModal();
+        }
     });
     
-    console.log(`${receitasUsuario.length} receita(s) carregada(s)`);
+    // Submeter formulário
+    const form = modal.querySelector('#formEditarPerfil');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const dadosAtualizados = {
+            nome: document.getElementById('editarNome').value,
+            biografia: document.getElementById('editarBiografia').value,
+            nivelCulinario: document.getElementById('editarNivel').value,
+            fotoPerfil: document.getElementById('editarFoto').value
+        };
+        
+        const sucesso = await atualizarPerfilUsuario(perfilState.usuarioLogado.id, dadosAtualizados);
+        
+        if (sucesso) {
+            // Atualiza estado local
+            perfilState.usuarioLogado = { ...perfilState.usuarioLogado, ...dadosAtualizados };
+            
+            // Re-renderiza perfil
+            renderizarPerfilUsuario(perfilState.usuarioLogado);
+            
+            // Fecha modal
+            fecharModal();
+        }
+    });
 }
 
-// Funções de ação nas receitas
-function verReceita(id) {
-    console.log('Visualizando receita:', id);
-    // Redirecionar para página de visualização
-    window.location.href = `../visualizar-receita/receita.html?id=${id}`;
-}
+// =============================================================================
+// 6. FUNÇÕES DE FEEDBACK
+// =============================================================================
 
-function editarReceita(id) {
-    console.log('Editando receita:', id);
-    // Redirecionar para página de edição
-    window.location.href = `../telaAdicionarReceita/adc.html?edit=${id}`;
-}
-
-function excluirReceita(id) {
-    if (!confirm('Tem certeza que deseja excluir esta receita? Esta ação não pode ser desfeita.')) {
-        return;
+/**
+ * Exibe feedback visual para o usuário
+ * @param {string} mensagem - Mensagem a ser exibida
+ * @param {string} tipo - Tipo de feedback (success, error, info, warning)
+ */
+function mostrarFeedback(mensagem, tipo = 'info') {
+    const feedbackAnterior = document.querySelector('.feedback-mensagem');
+    if (feedbackAnterior) {
+        feedbackAnterior.remove();
     }
     
-    // Buscar todas as receitas
-    let receitas = JSON.parse(localStorage.getItem('sharedCookingRecipes') || '[]');
+    let icone = 'info';
+    if (tipo === 'success') icone = 'check';
+    else if (tipo === 'error') icone = 'exclamation-triangle';
+    else if (tipo === 'warning') icone = 'exclamation';
     
-    // Filtrar removendo a receita
-    receitas = receitas.filter(r => r.id !== id);
-    
-    // Salvar de volta
-    localStorage.setItem('sharedCookingRecipes', JSON.stringify(receitas));
-    
-    mostrarNotificacao('Receita excluída com sucesso!', 'success');
-    
-    // Recarregar lista
-    carregarReceitas();
-}
-
-// Sistema de notificações
-function mostrarNotificacao(mensagem, tipo = 'info') {
-    const notificacaoAnterior = document.getElementById('systemNotification');
-    if (notificacaoAnterior) {
-        notificacaoAnterior.remove();
-    }
-
-    const notification = document.createElement('div');
-    notification.id = 'systemNotification';
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 10px;
-        color: white;
-        font-weight: 600;
-        z-index: 10000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-        max-width: 300px;
+    const feedback = document.createElement('div');
+    feedback.className = `feedback-mensagem ${tipo}`;
+    feedback.innerHTML = `
+        <div class="feedback-conteudo">
+            <i class="fas fa-${icone}-circle"></i>
+            <span>${mensagem}</span>
+        </div>
     `;
-
-    const cores = {
-        success: '#51a351',
-        error: '#bd362f',
-        warning: '#f89406',
-        info: '#2f96b4'
-    };
-
-    notification.style.backgroundColor = cores[tipo] || cores.info;
-    notification.textContent = mensagem;
-
-    document.body.appendChild(notification);
-
+    
+    document.body.appendChild(feedback);
+    
+    setTimeout(() => feedback.classList.add('show'), 10);
+    
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-
-    setTimeout(() => {
-        notification.style.transform = 'translateX(400px)';
+        feedback.classList.remove('show');
         setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+            if (feedback.parentNode) {
+                feedback.remove();
             }
         }, 300);
-    }, 5000);
+    }, 3000);
 }
 
-// Função de logout
-function realizarLogout() {
-    if (confirm('Deseja realmente sair?')) {
-        userDB.logout();
-        mostrarNotificacao('Logout realizado com sucesso!', 'success');
-        setTimeout(() => {
-            window.location.href = '../login/login.html';
-        }, 1500);
-    }
-}
+// =============================================================================
+// 7. FUNÇÃO PRINCIPAL DE INICIALIZAÇÃO
+// =============================================================================
 
-// Sincronizar dados quando houver mudanças
-function sincronizarDados() {
-    const dadosConfiguracao = JSON.parse(localStorage.getItem('userConfig') || '{}');
+/**
+ * Carrega todos os dados do perfil
+ */
+async function carregarPerfil() {
+    const usuario = verificarUsuarioLogado();
     
-    if (dadosConfiguracao) {
-        carregarPerfilUsuario();
-    }
-}
-
-// Adicionar botão de logout ao perfil
-function adicionarBotaoLogout() {
-    const perfilCard = document.querySelector('.perfil-card');
-    if (perfilCard && !document.getElementById('btnLogout')) {
-        const logoutBtn = document.createElement('button');
-        logoutBtn.id = 'btnLogout';
-        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Sair da Conta';
-        logoutBtn.style.cssText = `
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background: #bd362f;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.3s;
-            width: 100%;
-        `;
-        logoutBtn.onmouseover = () => logoutBtn.style.background = '#991f1f';
-        logoutBtn.onmouseout = () => logoutBtn.style.background = '#bd362f';
-        logoutBtn.onclick = realizarLogout;
+    if (!usuario) return;
+    
+    perfilState.usuarioLogado = usuario;
+    perfilState.carregando = true;
+    
+    try {
+        const dadosUsuario = await buscarDadosUsuario(usuario.id);
         
-        const perfilInfo = perfilCard.querySelector('.perfil-info');
-        if (perfilInfo) {
-            perfilInfo.appendChild(logoutBtn);
+        if (dadosUsuario) {
+            perfilState.usuarioLogado = { ...usuario, ...dadosUsuario };
+            renderizarPerfilUsuario(perfilState.usuarioLogado);
         }
+        
+        const receitas = await buscarReceitasUsuario(usuario.id);
+        perfilState.receitasUsuario = receitas;
+        renderizarReceitasUsuario(receitas);
+        
+    } catch (error) {
+        console.error('Erro ao carregar perfil:', error);
+        mostrarFeedback('Erro ao carregar dados do perfil', 'error');
+    } finally {
+        perfilState.carregando = false;
     }
 }
 
-// Inicialização ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Inicializa a página de perfil
+ */
+function inicializarPerfil() {
     console.log('Inicializando página de perfil...');
-    
-    // Carregar dados do perfil
-    carregarPerfilUsuario();
-    
-    // Carregar receitas do usuário
-    carregarReceitas();
-    
-    // Adicionar botão de logout
-    adicionarBotaoLogout();
-    
-    // Listener para mudanças no localStorage (sincronização entre abas)
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'userConfig' || e.key === 'sharedCookingRecipes') {
-            sincronizarDados();
-            carregarReceitas();
-        }
-        
-        // Se o usuário fizer logout em outra aba
-        if (e.key === 'currentUser' && !e.newValue) {
-            window.location.href = '../login/login.html';
-        }
-    });
-    
-    console.log('Página de perfil carregada com sucesso!');
-});
+    carregarPerfil();
+    console.log('Página de perfil inicializada!');
+}
 
-// Tornar funções globais para uso nos botões
-window.verReceita = verReceita;
-window.editarReceita = editarReceita;
-window.excluirReceita = excluirReceita;
-window.realizarLogout = realizarLogout;
+// =============================================================================
+// 8. INICIALIZAÇÃO AUTOMÁTICA
+// =============================================================================
 
+// Inicializa quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', inicializarPerfil);

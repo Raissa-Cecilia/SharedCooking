@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared Cooking</title>
+    <title>Meu Perfil - Shared Cooking</title>
     <link rel="stylesheet" href="perfil.css">
-    <link rel="stylesheet" href="perfil.js">
+    <link rel="stylesheet" href="perfil-extras.css">
+    <link rel="stylesheet" href="perfil-extras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
    <header class="cabecario">
-        <img src="imgs/logoIdea1.png" alt="Logo do site" class="logo" >
+        <img src="../imagens/logoIdea1.png" alt="Logo do site" class="logo">
         
         <nav class="menu-navegacao">
             <ul class="menu">
-                <li><a href="/homePage/index.html">Início</a></li>
-                <li><a href="/categorias/categorias.html">Categorias</a></li>
-                <li><a href="/telaAdicionarReceita/adc.js">Adicionar Receita</a></li>
-                <li><a href="/contato/contato.html">Contato</a></li>
+                <li><a href="../homePage/index.html">Início</a></li>
+                <li><a href="../categorias/categorias.html">Categorias</a></li>
+                <li><a href="../telaAdicionarReceita/telaAdc.html">Adicionar Receita</a></li>
+                <li><a href="../contato/contato.html">Contato</a></li>
             </ul>
         </nav>
 
         <div class="acoes-usuario">
             <div class="barra-pesquisa">
-                <input type="search" placeholder="Buscar receitas..."> 
-                 <i class="fas fa-search"></i> </div>
+                <input type="search" placeholder="Buscar receitas..." aria-label="Buscar receitas"> 
+                <i class="fas fa-search"></i>
+            </div>
             <i class="fas fa-cog icone-config"></i>
             <i class="fas fa-user-circle icone-perfil"></i>
         </div>
@@ -31,12 +34,16 @@
 
     <main class="perfil-container">
        
+        <!-- Card do Perfil -->
         <div class="perfil-card">
             <div class="perfil-header">
                 <div class="perfil-avatar" id="perfilAvatar">
                     <i class="fas fa-user-circle"></i>
                 </div>
-                <h1 class="perfil-nome" id="perfilNome">Nome do Usuário</h1>
+                <div>
+                    <h1 class="perfil-nome" id="perfilNome">Carregando...</h1>
+                    <!-- O botão "Editar Perfil" será adicionado aqui pelo JS -->
+                </div>
             </div>
 
             <div class="perfil-info">
@@ -52,16 +59,10 @@
             </div>
         </div>
         
-        <div class="receitas">
-            <ul class="receitas-usuario">
-
-                
-            </ul>
-
-
+        <!-- Grid de Receitas do Usuário -->
+        <div class="receitas-grid">
+            <!-- As receitas serão carregadas dinamicamente aqui -->
         </div>
-
-
 
     </main>
 
@@ -73,5 +74,7 @@
         </div>
     </footer>
 
-    
+    <!-- Script principal -->
+    <script src="perfil.js"></script>
 </body>
+</html>
