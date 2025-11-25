@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - Shared Cooking</title>
     <link rel="stylesheet" href="perfil.css">
-    <link rel="stylesheet" href="perfil-extras.css">
-    <link rel="stylesheet" href="perfil-extras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
    <header class="cabecario">
-        <img src="../imagens/logoIdea1.png" alt="Logo do site" class="logo">
+        <img src="imgs/logoIdea1.png" alt="Logo do site" class="logo">
         
         <nav class="menu-navegacao">
             <ul class="menu">
@@ -32,39 +30,69 @@
         </div>
     </header>
 
-    <main class="perfil-container">
-       
-        <!-- Card do Perfil -->
-        <div class="perfil-card">
-            <div class="perfil-header">
-                <div class="perfil-avatar" id="perfilAvatar">
-                    <i class="fas fa-user-circle"></i>
-                </div>
-                <div>
-                    <h1 class="perfil-nome" id="perfilNome">Carregando...</h1>
-                    <!-- O botão "Editar Perfil" será adicionado aqui pelo JS -->
-                </div>
-            </div>
-
-            <div class="perfil-info">
-                <div class="perfil-secao">
-                    <h3>Biografia do usuário</h3>
-                    <p id="perfilBiografia">Carregando biografia...</p>
-                </div>
-
-                <div class="perfil-secao">
-                    <h3>Nível Culinário</h3>
-                    <p id="perfilNivel">Carregando nível...</p>
+    <div class="container-principal">
+        <!-- Anúncio Lateral Esquerdo -->
+        <aside class="anuncio-lateral esquerdo">
+            <div class="anuncio-conteudo">
+                <h4>Anúncio</h4>
+                <p>Espaço para patrocinadores</p>
+                <div class="anuncio-exemplo">
+                    <p>🍳 Utensílios Chef</p>
+                    <p>🥘 Panelas Premium</p>
+                    <p>🔪 Facas Profissionais</p>
                 </div>
             </div>
-        </div>
-        
-        <!-- Grid de Receitas do Usuário -->
-        <div class="receitas-grid">
-            <!-- As receitas serão carregadas dinamicamente aqui -->
-        </div>
+        </aside>
 
-    </main>
+        <!-- Conteúdo Central -->
+        <main class="conteudo-central">
+            <div class="perfil-container">
+               
+                <!-- Card do Perfil -->
+                <div class="perfil-card">
+                    <div class="perfil-header">
+                        <div class="perfil-avatar" id="perfilAvatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div>
+                            <h1 class="perfil-nome" id="perfilNome">Carregando...</h1>
+                        </div>
+                    </div>
+
+                    <div class="perfil-info">
+                        <div class="perfil-secao">
+                            <h3>Biografia</h3>
+                            <p id="perfilBiografia">Carregando biografia...</p>
+                        </div>
+
+                        <div class="perfil-secao">
+                            <h3>Proficiência Culinária</h3>
+                            <p id="perfilNivel">Carregando nível...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grid de Receitas do Usuário -->
+                <div class="receitas-grid">
+                    <!-- As receitas serão carregadas dinamicamente aqui -->
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Anúncio Lateral Direito -->
+        <aside class="anuncio-lateral direito">
+            <div class="anuncio-conteudo">
+                <h4>Anúncio</h4>
+                <p>Espaço para patrocinadores</p>
+                <div class="anuncio-exemplo">
+                    <p>📚 Livros de Receitas</p>
+                    <p>🌱 Ingredientes Orgânicos</p>
+                    <p>👨‍🍳 Cursos Online</p>
+                </div>
+            </div>
+        </aside>
+    </div>
 
     <footer class="rodape">
         <p>&copy; 2025 Shared Cooking. Todos os direitos reservados.</p>
@@ -74,7 +102,6 @@
         </div>
     </footer>
 
-    <!-- Script principal -->
     <script src="perfil.js"></script>
 </body>
 </html>
