@@ -175,3 +175,165 @@ body {
 .links-rodape a:hover {
     text-decoration: underline;
 }
+
+#areaReceitasCategoria {
+    width: 100%;
+    padding: 40px 60px;
+}
+
+#areaReceitasCategoria .destaques {
+    padding-top: 40px;
+}
+
+#areaReceitasCategoria h2 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+#areaReceitasCategoria .lista-destaques {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+#areaReceitasCategoria .cartao-destaque {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.3);
+}
+
+#areaReceitasCategoria .foto-destaque {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+#areaReceitasCategoria .conteudo-cartao {
+    padding: 20px;
+}
+
+#areaReceitasCategoria .conteudo-cartao h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#areaReceitasCategoria .info-rapida {
+    display: flex;
+    gap: 15px;
+    margin: 8px 0;
+    color: #555;
+}
+
+#areaReceitasCategoria .ver-detalhes {
+    margin-top: 12px;
+    background: #f4d03f;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+/* Área da lista */
+#areaReceitasCategoria {
+    width: 100%;
+    padding: 40px 60px;
+}
+
+/* Botão voltar */
+#btnVoltarCategorias {
+    background: #f4d03f;
+    padding: 12px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* Lista */
+#areaReceitasCategoria .lista-destaques {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+/* Card */
+#areaReceitasCategoria .cartao-destaque {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.3);
+}
+
+.foto-destaque {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+#areaReceitasCategoria .conteudo-cartao {
+    padding: 20px;
+}
+
+#areaReceitasCategoria .ver-detalhes {
+    background: #f4d03f;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* MODAL ESTILO HOMEPAGE */
+.modalReceita {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+    overflow-y: auto;
+    z-index: 9000;
+}
+
+.modalConteudo {
+    width: 85%;
+    max-width: 850px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+}
+
+.fecharModal {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #444;
+    color: white;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.modalImagem {
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 12px;
+}
+
+.listaIngredientes li,
+.listaPreparo li {
+    margin-bottom: 5px;
+}
